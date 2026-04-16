@@ -50,10 +50,13 @@ export function useTokenRefresh() {
     schedule();
 
     // Re-schedule whenever auth state changes (e.g. after login or manual refresh)
-    const unsubscribe = useAuthStore.subscribe(
-      (state) => state.expiresAt,
-      () => schedule()
-    );
+    let prevExpiresAt = useAuthStore.getState().expiresAt;
+    const unsubscribe = useAuthStore.subscribe((state) => {
+      if (state.expiresAt !== prevExpiresAt) {
+        prevExpiresAt = state.expiresAt;
+        schedule();
+      }
+    });
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
