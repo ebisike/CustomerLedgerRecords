@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Plus, Download, Filter, X, FileText, FileSpreadsheet,
-  ChevronUp, ChevronDown, TrendingUp, TrendingDown, Wallet
+  ChevronUp, ChevronDown, TrendingUp, TrendingDown, Wallet, ArrowUp
 } from 'lucide-react';
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm, Controller } from 'react-hook-form';
@@ -423,16 +423,27 @@ const CustomerLedgerPage: React.FC = () => {
               {lastMeta && (
                 <p className="text-sm text-surface-500">{lastMeta.showing}</p>
               )}
-              {hasNextPage && (
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  isLoading={isFetchingNextPage}
-                  onClick={() => fetchNextPage()}
-                >
-                  See More
-                </Button>
-              )}
+              <div className="flex items-center gap-2">
+                {hasNextPage && (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    isLoading={isFetchingNextPage}
+                    onClick={() => fetchNextPage()}
+                  >
+                    See More
+                  </Button>
+                )}
+                {entries.length > 0 && (
+                  <button
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    title="Back to top"
+                    className="p-1.5 rounded-lg border border-surface-200 text-surface-400 hover:text-surface-700 hover:bg-surface-100 transition-colors"
+                  >
+                    <ArrowUp size={15} />
+                  </button>
+                )}
+              </div>
             </div>
           </>
         )}
