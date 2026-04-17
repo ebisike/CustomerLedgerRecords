@@ -1,7 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '@/store/authStore';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://drinkandfood-api-gateway.runasp.net/api/v1';
 
 // Refresh 60 seconds before the token actually expires
 const REFRESH_THRESHOLD_MS = 60 * 1000;
