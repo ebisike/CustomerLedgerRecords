@@ -80,6 +80,7 @@ public class ExportService : IExportService
                             cols.ConstantColumn(70);   // Date
                             cols.RelativeColumn(3);    // Description
                             cols.RelativeColumn(1.5f); // Invoice
+                            cols.ConstantColumn(50);   // Page No
                             cols.RelativeColumn(1.5f); // Updated By
                             cols.ConstantColumn(75);   // Debit
                             cols.ConstantColumn(75);   // Credit
@@ -95,6 +96,7 @@ public class ExportService : IExportService
                             header.Cell().Element(HeaderCell).Text("Date").Bold().FontColor(Colors.White).FontSize(8);
                             header.Cell().Element(HeaderCell).Text("Description/Narration").Bold().FontColor(Colors.White).FontSize(8);
                             header.Cell().Element(HeaderCell).Text("Invoice/Receipt #").Bold().FontColor(Colors.White).FontSize(8);
+                            header.Cell().Element(HeaderCell).AlignCenter().Text("Page No").Bold().FontColor(Colors.White).FontSize(8);
                             header.Cell().Element(HeaderCell).Text("Updated By").Bold().FontColor(Colors.White).FontSize(8);
                             header.Cell().Element(HeaderCell).AlignRight().Text("Debit (₦)").Bold().FontColor(Colors.White).FontSize(8);
                             header.Cell().Element(HeaderCell).AlignRight().Text("Credit (₦)").Bold().FontColor(Colors.White).FontSize(8);
@@ -117,6 +119,8 @@ public class ExportService : IExportService
                                 .Text(entry.Description).FontSize(8);
                             table.Cell().Element(c => DataCell(c, bgColor))
                                 .Text(entry.InvoiceReceiptNumber).FontSize(8);
+                            table.Cell().Element(c => DataCell(c, bgColor)).AlignCenter()
+                                .Text(entry.PageNo ?? "-").FontSize(8).FontColor(string.IsNullOrEmpty(entry.PageNo) ? "#94a3b8" : "#1e293b");
                             table.Cell().Element(c => DataCell(c, bgColor))
                                 .Text(entry.UpdatedByName).FontSize(8);
                             table.Cell().Element(c => DataCell(c, bgColor)).AlignRight()
@@ -159,13 +163,13 @@ public class ExportService : IExportService
 
             // Title
             ws.Cells["A1"].Value = "Food and Drinks Warehouse Intl Limited";
-            ws.Cells["A1:G1"].Merge = true;
+            ws.Cells["A1:H1"].Merge = true;
             ws.Cells["A1"].Style.Font.Bold = true;
             ws.Cells["A1"].Style.Font.Size = 14;
             ws.Cells["A1"].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#1e40af"));
 
             ws.Cells["A2"].Value = "Customer Credit Ledger Statement";
-            ws.Cells["A2:G2"].Merge = true;
+            ws.Cells["A2:H2"].Merge = true;
             ws.Cells["A2"].Style.Font.Size = 11;
 
             ws.Cells["A4"].Value = "Customer:";
@@ -187,7 +191,7 @@ public class ExportService : IExportService
 
             // Headers row 11
             var headerRow = 11;
-            var headers = new[] { "Date", "Description/Narration", "Invoice/Receipt #", "Updated By", "Debit", "Credit", "Balance" };
+            var headers = new[] { "Date", "Description/Narration", "Invoice/Receipt #", "Page No", "Updated By", "Debit", "Credit", "Balance" };
             for (var i = 0; i < headers.Length; i++)
             {
                 var cell = ws.Cells[headerRow, i + 1];
@@ -206,19 +210,20 @@ public class ExportService : IExportService
                 ws.Cells[row, 1].Value = entry.Date.ToString("dd/MM/yyyy");
                 ws.Cells[row, 2].Value = entry.Description;
                 ws.Cells[row, 3].Value = entry.InvoiceReceiptNumber;
-                ws.Cells[row, 4].Value = entry.UpdatedByName;
-                ws.Cells[row, 5].Value = entry.Debit;
-                ws.Cells[row, 6].Value = entry.Credit;
-                ws.Cells[row, 7].Value = entry.Balance;
+                ws.Cells[row, 4].Value = entry.PageNo ?? "";
+                ws.Cells[row, 5].Value = entry.UpdatedByName;
+                ws.Cells[row, 6].Value = entry.Debit;
+                ws.Cells[row, 7].Value = entry.Credit;
+                ws.Cells[row, 8].Value = entry.Balance;
 
-                ws.Cells[row, 5].Style.Numberformat.Format = "#,##0.00";
                 ws.Cells[row, 6].Style.Numberformat.Format = "#,##0.00";
                 ws.Cells[row, 7].Style.Numberformat.Format = "#,##0.00";
+                ws.Cells[row, 8].Style.Numberformat.Format = "#,##0.00";
 
                 if (row % 2 == 0)
                 {
-                    ws.Cells[row, 1, row, 7].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    ws.Cells[row, 1, row, 7].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#f8fafc"));
+                    ws.Cells[row, 1, row, 8].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    ws.Cells[row, 1, row, 8].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml("#f8fafc"));
                 }
 
                 row++;
@@ -226,18 +231,18 @@ public class ExportService : IExportService
 
             // Totals row
             row++;
-            ws.Cells[row, 4].Value = "TOTALS:";
-            ws.Cells[row, 4].Style.Font.Bold = true;
-            ws.Cells[row, 5].Value = data.TotalDebits;
-            ws.Cells[row, 6].Value = data.TotalCredits;
-            ws.Cells[row, 7].Value = data.ClosingBalance;
-            ws.Cells[row, 5, row, 7].Style.Font.Bold = true;
-            ws.Cells[row, 5].Style.Numberformat.Format = "#,##0.00";
+            ws.Cells[row, 5].Value = "TOTALS:";
+            ws.Cells[row, 5].Style.Font.Bold = true;
+            ws.Cells[row, 6].Value = data.TotalDebits;
+            ws.Cells[row, 7].Value = data.TotalCredits;
+            ws.Cells[row, 8].Value = data.ClosingBalance;
+            ws.Cells[row, 6, row, 8].Style.Font.Bold = true;
             ws.Cells[row, 6].Style.Numberformat.Format = "#,##0.00";
             ws.Cells[row, 7].Style.Numberformat.Format = "#,##0.00";
-            ws.Cells[row, 5].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#dc2626"));
-            ws.Cells[row, 6].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#16a34a"));
-            ws.Cells[row, 7].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#1e40af"));
+            ws.Cells[row, 8].Style.Numberformat.Format = "#,##0.00";
+            ws.Cells[row, 6].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#dc2626"));
+            ws.Cells[row, 7].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#16a34a"));
+            ws.Cells[row, 8].Style.Font.Color.SetColor(ColorTranslator.FromHtml("#1e40af"));
 
             // Auto-fit columns
             ws.Cells[ws.Dimension.Address].AutoFitColumns();

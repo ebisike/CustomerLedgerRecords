@@ -5,6 +5,7 @@ public class LedgerEntry : BaseEntity
     public DateTime Date { get; set; }
     public string Description { get; set; } = string.Empty;
     public string InvoiceReceiptNumber { get; set; } = string.Empty;
+    public string? PageNo { get; set; }
     public decimal Debit { get; set; } = 0;
     public decimal Credit { get; set; } = 0;
     public decimal Balance { get; set; } = 0;

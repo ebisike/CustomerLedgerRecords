@@ -33,7 +33,7 @@ public class LedgerController : BaseController
         [FromBody] AddLedgerEntryDto dto,
         CancellationToken ct)
         => HandleResponse(await Mediator.Send(
-            new AddLedgerEntryCommand(customerId, dto.Date, dto.Description, dto.InvoiceReceiptNumber, dto.Debit, dto.Credit), ct));
+            new AddLedgerEntryCommand(customerId, dto.Date, dto.Description, dto.InvoiceReceiptNumber, dto.PageNo, dto.Debit, dto.Credit), ct));
 
     /// <summary>Export ledger to PDF or Excel</summary>
     [HttpGet("customers/{customerId:guid}/export")]

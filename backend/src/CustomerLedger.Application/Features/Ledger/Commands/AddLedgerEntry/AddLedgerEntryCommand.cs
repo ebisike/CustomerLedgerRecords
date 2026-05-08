@@ -12,6 +12,7 @@ public record AddLedgerEntryCommand(
     DateTime Date,
     string Description,
     string InvoiceReceiptNumber,
+    string? PageNo,
     decimal Debit,
     decimal Credit
 ) : IRequest<ApiResponse<LedgerEntryDto>>;
@@ -59,6 +60,7 @@ public class AddLedgerEntryCommandHandler : IRequestHandler<AddLedgerEntryComman
                 Date = request.Date.ToUniversalTime(),
                 Description = request.Description,
                 InvoiceReceiptNumber = request.InvoiceReceiptNumber,
+                PageNo = request.PageNo,
                 Debit = request.Debit,
                 Credit = request.Credit,
                 Balance = newBalance,
@@ -77,6 +79,7 @@ public class AddLedgerEntryCommandHandler : IRequestHandler<AddLedgerEntryComman
                 entry.Date,
                 entry.Description,
                 entry.InvoiceReceiptNumber,
+                entry.PageNo,
                 user?.FullName ?? "Unknown",
                 userId,
                 entry.Debit,
