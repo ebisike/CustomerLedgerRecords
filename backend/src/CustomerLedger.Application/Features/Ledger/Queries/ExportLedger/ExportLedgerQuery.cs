@@ -64,6 +64,7 @@ public class ExportLedgerQueryHandler : IRequestHandler<ExportLedgerQuery, ApiRe
 
         var entryDtos = entries.Select(e => new LedgerEntryDto(
             e.Id, e.Date, e.Description, e.InvoiceReceiptNumber,
+            e.PageNo,
             e.UpdatedBy?.FullName ?? "Unknown",
             e.UpdatedById, e.Debit, e.Credit, e.Balance, e.CreatedAt
         )).ToList();

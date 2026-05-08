@@ -29,6 +29,7 @@ const entrySchema = z.object({
   date: z.date({ required_error: 'Date is required' }),
   description: z.string().min(1, 'Description is required').max(500),
   invoiceReceiptNumber: z.string().min(1, 'Invoice/Receipt number is required').max(100),
+  pageNo: z.string().max(20, 'Page number must not exceed 20 characters').optional(),
   amount: z.number({ invalid_type_error: 'Amount is required' }).positive('Amount must be greater than zero'),
 });
 
@@ -113,6 +114,7 @@ const CustomerLedgerPage: React.FC = () => {
         date: data.date.toISOString(),
         description: data.description,
         invoiceReceiptNumber: data.invoiceReceiptNumber,
+        pageNo: data.pageNo || undefined,
         debit: entryType === 'debit' ? data.amount : 0,
         credit: entryType === 'credit' ? data.amount : 0,
       }),
@@ -124,7 +126,7 @@ const CustomerLedgerPage: React.FC = () => {
         setShowEntryModal(false);
         setEntryType(null);
         setAmountDisplay('');
-        reset({ date: new Date(), amount: undefined, description: '', invoiceReceiptNumber: '' });
+        reset({ date: new Date(), amount: undefined, description: '', invoiceReceiptNumber: '', pageNo: '' });
       } else {
         toast.error(res.data.errorMessage);
       }
@@ -340,6 +342,7 @@ const CustomerLedgerPage: React.FC = () => {
                       { key: 'date', label: 'Date', right: false },
                       { key: 'description', label: 'Description / Narration', right: false },
                       { key: 'invoiceReceiptNumber', label: 'Invoice/Receipt #', right: false },
+                      { key: 'pageNo', label: 'Page No', right: false },
                       { key: 'updatedBy', label: 'Updated By', right: false },
                       { key: 'debit', label: 'Debit (₦)', right: true },
                       { key: 'credit', label: 'Credit (₦)', right: true },
@@ -372,6 +375,9 @@ const CustomerLedgerPage: React.FC = () => {
                       </td>
                       <td className="py-3 px-4">
                         <Badge variant="default">{entry.invoiceReceiptNumber}</Badge>
+                      </td>
+                      <td className="py-3 px-4 text-surface-600 whitespace-nowrap">
+                        {entry.pageNo ? <Badge variant="default">{entry.pageNo}</Badge> : <span className="text-surface-300">—</span>}
                       </td>
                       <td className="py-3 px-4 text-surface-600 whitespace-nowrap">{entry.updatedByName}</td>
                       <td className="py-3 px-4 text-right">
@@ -413,6 +419,7 @@ const CustomerLedgerPage: React.FC = () => {
                   <div className="flex items-center gap-4 text-xs text-surface-500">
                     {entry.debit > 0 && <span className="text-danger-600">Dr: ₦{formatCurrency(entry.debit)}</span>}
                     {entry.credit > 0 && <span className="text-success-600">Cr: ₦{formatCurrency(entry.credit)}</span>}
+                    {entry.pageNo && <span className="text-surface-500">Pg: {entry.pageNo}</span>}
                     <span className="text-surface-400 ml-auto">{entry.updatedByName}</span>
                   </div>
                 </div>
@@ -452,7 +459,7 @@ const CustomerLedgerPage: React.FC = () => {
       {/* Add Ledger Entry Modal */}
       <Modal
         isOpen={showEntryModal}
-        onClose={() => { setShowEntryModal(false); setEntryType(null); setAmountDisplay(''); reset(); }}
+        onClose={() => { setShowEntryModal(false); setEntryType(null); setAmountDisplay(''); reset({ date: new Date(), amount: undefined, description: '', invoiceReceiptNumber: '', pageNo: '' }); }}
         title={entryType === null ? 'Update Ledger — Select Type' : `Update Ledger — ${entryType === 'debit' ? 'Debit Entry' : 'Credit Entry'}`}
         size="lg"
         footer={
@@ -464,7 +471,7 @@ const CustomerLedgerPage: React.FC = () => {
             </div>
           ) : (
             <div className="flex justify-between gap-3">
-              <Button variant="secondary" onClick={() => { setEntryType(null); setAmountDisplay(''); reset({ date: new Date(), amount: undefined, description: '', invoiceReceiptNumber: '' }); }}>
+              <Button variant="secondary" onClick={() => { setEntryType(null); setAmountDisplay(''); reset({ date: new Date(), amount: undefined, description: '', invoiceReceiptNumber: '', pageNo: '' }); }}>
                 Back
               </Button>
               <div className="flex gap-3">
@@ -555,6 +562,13 @@ const CustomerLedgerPage: React.FC = () => {
               error={errors.invoiceReceiptNumber?.message}
               required
               {...register('invoiceReceiptNumber')}
+            />
+
+            <Input
+              label="Page No"
+              placeholder="e.g., 42"
+              error={errors.pageNo?.message}
+              {...register('pageNo')}
             />
 
             <div>

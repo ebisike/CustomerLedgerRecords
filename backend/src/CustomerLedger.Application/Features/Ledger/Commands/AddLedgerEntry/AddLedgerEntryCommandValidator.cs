@@ -21,6 +21,10 @@ public class AddLedgerEntryCommandValidator : AbstractValidator<AddLedgerEntryCo
             .NotEmpty().WithMessage("Invoice/Receipt number is required.")
             .MaximumLength(100).WithMessage("Invoice/Receipt number must not exceed 100 characters.");
 
+        RuleFor(x => x.PageNo)
+            .MaximumLength(20).WithMessage("Page number must not exceed 20 characters.")
+            .When(x => x.PageNo != null);
+
         RuleFor(x => x.Debit)
             .GreaterThanOrEqualTo(0).WithMessage("Debit amount cannot be negative.");
 

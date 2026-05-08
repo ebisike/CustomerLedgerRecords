@@ -18,7 +18,7 @@ public class MappingProfile : Profile
 
         CreateMap<LedgerEntry, LedgerEntryDto>()
             .ConstructUsing((e, ctx) => new LedgerEntryDto(
-                e.Id, e.Date, e.Description, e.InvoiceReceiptNumber,
+                e.Id, e.Date, e.Description, e.InvoiceReceiptNumber, e.PageNo,
                 e.UpdatedBy != null ? e.UpdatedBy.FullName : "Unknown",
                 e.UpdatedById, e.Debit, e.Credit, e.Balance, e.CreatedAt));
     }

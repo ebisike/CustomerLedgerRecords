@@ -5,6 +5,7 @@ public record LedgerEntryDto(
     DateTime Date,
     string Description,
     string InvoiceReceiptNumber,
+    string? PageNo,
     string UpdatedByName,
     Guid UpdatedById,
     decimal Debit,
@@ -17,6 +18,7 @@ public record AddLedgerEntryDto(
     DateTime Date,
     string Description,
     string InvoiceReceiptNumber,
+    string? PageNo,
     decimal Debit,
     decimal Credit
 );

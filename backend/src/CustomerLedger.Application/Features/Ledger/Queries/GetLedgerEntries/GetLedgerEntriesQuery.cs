@@ -77,6 +77,7 @@ public class GetLedgerEntriesQueryHandler : IRequestHandler<GetLedgerEntriesQuer
 
         var dtos = entries.Select(e => new LedgerEntryDto(
             e.Id, e.Date, e.Description, e.InvoiceReceiptNumber,
+            e.PageNo,
             e.UpdatedBy?.FullName ?? "Unknown",
             e.UpdatedById, e.Debit, e.Credit, e.Balance, e.CreatedAt
         )).ToList();

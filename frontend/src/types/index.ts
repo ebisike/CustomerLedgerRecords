@@ -106,6 +106,7 @@ export interface LedgerEntry {
   date: string;
   description: string;
   invoiceReceiptNumber: string;
+  pageNo?: string;
   updatedByName: string;
   updatedById: string;
   debit: number;
@@ -118,6 +119,7 @@ export interface AddLedgerEntryDto {
   date: string;
   description: string;
   invoiceReceiptNumber: string;
+  pageNo?: string;
   debit: number;
   credit: number;
 }

@@ -70,6 +70,7 @@ public class AppDbContext : DbContext
             e.HasKey(x => x.Id);
             e.Property(x => x.Description).IsRequired().HasMaxLength(500);
             e.Property(x => x.InvoiceReceiptNumber).IsRequired().HasMaxLength(100);
+            e.Property(x => x.PageNo).HasMaxLength(20);
             e.Property(x => x.Debit).HasPrecision(18, 2);
             e.Property(x => x.Credit).HasPrecision(18, 2);
             e.Property(x => x.Balance).HasPrecision(18, 2);
