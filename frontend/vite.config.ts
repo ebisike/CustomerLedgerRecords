@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
 
-export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/CustomerLedgerRecords/' : '/',
+export default defineConfig(() => ({
+  base: '/',
   plugins: [
     react(),
     VitePWA({
