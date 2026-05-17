@@ -32,6 +32,9 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         => await _dbSet.AddAsync(entity, cancellationToken);
 
+    public async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        => await _dbSet.AddRangeAsync(entities, cancellationToken);
+
     public void Update(T entity)
         => _dbSet.Update(entity);
 
