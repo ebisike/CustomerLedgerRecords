@@ -13,7 +13,7 @@ export default defineConfig(() => ({
       manifest: {
         name: 'Customer Credit Ledger',
         short_name: 'CreditLedger',
-        description: 'Food and Drinks Warehouse - Customer Credit Ledger System',
+        description: 'Drink & Food  warehouse Intl Limited - Customer Credit Ledger System',
         theme_color: '#1e40af',
         background_color: '#ffffff',
         display: 'standalone',

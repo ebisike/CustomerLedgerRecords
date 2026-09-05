@@ -24,7 +24,7 @@ export const AuthLayout: React.FC = () => {
           <div className="w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-4">
             <Building2 size={32} className="text-white" />
           </div>
-          <h1 className="text-white font-bold text-xl text-center">Food & Drinks Warehouse</h1>
+          <h1 className="text-white font-bold text-xl text-center">Drink & Food  warehouse Intl Limited</h1>
           <p className="text-white/60 text-sm mt-1 text-center">Customer Credit Ledger System</p>
         </motion.div>
 

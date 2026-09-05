@@ -36,7 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <Building2 size={18} className="text-white" />
         </div>
         <div>
-          <p className="text-white font-semibold text-sm leading-none">F&D Warehouse</p>
+          <p className="text-white font-semibold text-sm leading-none">D&F Warehouse</p>
           <p className="text-white/50 text-xs mt-0.5">Credit Ledger</p>
         </div>
         <button

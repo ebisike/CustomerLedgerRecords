@@ -1,0 +1,1 @@
+import{a as o}from"./Button-Dekw3_Vg.js";const s={login:t=>o.post("/auth/login",t),forgotPassword:t=>o.post("/auth/forgot-password",t),resetPassword:t=>o.post("/auth/reset-password",t),inviteUser:t=>o.post("/auth/invite",t),acceptInvitation:t=>o.post("/auth/accept-invitation",t)};export{s as a};
