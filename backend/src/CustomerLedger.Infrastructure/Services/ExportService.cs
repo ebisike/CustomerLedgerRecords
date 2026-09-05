@@ -36,7 +36,7 @@ public class ExportService : IExportService
                         {
                             row.RelativeItem().Column(c =>
                             {
-                                c.Item().Text("Food and Drinks Warehouse Intl Limited")
+                                c.Item().Text("Drinks and Food Warehouse Intl Limited")
                                     .Bold().FontSize(14).FontColor("#1e40af");
                                 c.Item().Text("Customer Credit Ledger Statement")
                                     .FontSize(11).FontColor("#475569");
@@ -162,7 +162,7 @@ public class ExportService : IExportService
             var ws = package.Workbook.Worksheets.Add("Ledger");
 
             // Title
-            ws.Cells["A1"].Value = "Food and Drinks Warehouse Intl Limited";
+            ws.Cells["A1"].Value = "Drinks and Food Warehouse Intl Limited";
             ws.Cells["A1:H1"].Merge = true;
             ws.Cells["A1"].Style.Font.Bold = true;
             ws.Cells["A1"].Style.Font.Size = 14;
