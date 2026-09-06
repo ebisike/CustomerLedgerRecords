@@ -20,7 +20,7 @@ public class EmailService : IEmailService
 
     public async Task SendPasswordResetEmailAsync(string toEmail, string toName, string resetLink, CancellationToken cancellationToken = default)
     {
-        var subject = "Reset Your Password - Food & Drinks Warehouse";
+        var subject = "Reset Your Password - Drinks & Food Warehouse Intl Limited";
         var body = $@"
 <!DOCTYPE html>
 <html>
@@ -31,14 +31,14 @@ public class EmailService : IEmailService
   </div>
   <div style='background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;'>
     <p>Hello {toName},</p>
-    <p>You requested a password reset for your Food & Drinks Warehouse account.</p>
+    <p>You requested a password reset for your Drinks & Food Warehouse account.</p>
     <p>Click the button below to reset your password. This link expires in <strong>2 hours</strong>.</p>
     <div style='text-align: center; margin: 30px 0;'>
       <a href='{resetLink}' style='background: #1e40af; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;'>Reset Password</a>
     </div>
     <p style='color: #64748b; font-size: 14px;'>If you did not request this, please ignore this email. Your password will not change.</p>
     <hr style='border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;'>
-    <p style='color: #94a3b8; font-size: 12px; text-align: center;'>Food and Drinks Warehouse Intl Limited</p>
+    <p style='color: #94a3b8; font-size: 12px; text-align: center;'>Drinks and Food Warehouse Intl Limited</p>
   </div>
 </body>
 </html>";
@@ -48,7 +48,7 @@ public class EmailService : IEmailService
 
     public async Task SendInvitationEmailAsync(string toEmail, string toName, string invitationLink, string invitedByName, CancellationToken cancellationToken = default)
     {
-        var subject = "You're Invited - Food & Drinks Warehouse";
+        var subject = "You're Invited - Drinks & Food Warehouse Intl Limited";
         var body = $@"
 <!DOCTYPE html>
 <html>
@@ -59,14 +59,14 @@ public class EmailService : IEmailService
   </div>
   <div style='background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;'>
     <p>Hello {toName},</p>
-    <p><strong>{invitedByName}</strong> has invited you to join the <strong>Food and Drinks Warehouse Intl Limited</strong> customer ledger system.</p>
+    <p><strong>{invitedByName}</strong> has invited you to join the <strong>Drinks and Food Warehouse Intl Limited</strong> customer ledger system.</p>
     <p>Click the button below to accept the invitation and set up your account. This link expires in <strong>7 days</strong>.</p>
     <div style='text-align: center; margin: 30px 0;'>
       <a href='{invitationLink}' style='background: #16a34a; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;'>Accept Invitation</a>
     </div>
     <p style='color: #64748b; font-size: 14px;'>If you were not expecting this invitation, you can safely ignore this email.</p>
     <hr style='border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;'>
-    <p style='color: #94a3b8; font-size: 12px; text-align: center;'>Food and Drinks Warehouse Intl Limited</p>
+    <p style='color: #94a3b8; font-size: 12px; text-align: center;'>Drinks and Food Warehouse Intl Limited</p>
   </div>
 </body>
 </html>";
@@ -76,7 +76,7 @@ public class EmailService : IEmailService
 
     public async Task SendWelcomeEmailAsync(string toEmail, string toName, CancellationToken cancellationToken = default)
     {
-        var subject = "Welcome to Food & Drinks Warehouse";
+        var subject = "Welcome to Drinks & Food Warehouse Intl Limited";
         var body = $@"
 <!DOCTYPE html>
 <html>
@@ -87,10 +87,10 @@ public class EmailService : IEmailService
   </div>
   <div style='background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;'>
     <p>Hello {toName},</p>
-    <p>Welcome to <strong>Food and Drinks Warehouse Intl Limited</strong>! Your account has been created successfully.</p>
+    <p>Welcome to <strong>Drinks and Food Warehouse Intl Limited</strong>! Your account has been created successfully.</p>
     <p>You can now log in to access the Customer Credit Ledger system.</p>
     <hr style='border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;'>
-    <p style='color: #94a3b8; font-size: 12px; text-align: center;'>Food and Drinks Warehouse Intl Limited</p>
+    <p style='color: #94a3b8; font-size: 12px; text-align: center;'>Drinks and Food Warehouse Intl Limited</p>
   </div>
 </body>
 </html>";
