@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuToggle, sidebarOpen }) => 
             <Building2 size={16} className="text-white" />
           </div>
           <span className="text-sm font-semibold text-surface-800 hidden md:block">
-            F&D Warehouse
+            D&F Warehouse
           </span>
         </div>
       </div>
